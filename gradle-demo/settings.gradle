@@ -1,0 +1,26 @@
+//println "Initialization phase in build.gradle"
+pluginManagement {
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+    }
+//    resolutionStrategy{   if need replace module in plugin with namespace or choose target version of plugin
+//        if (requested.id.namespace == 'org.springframework.boot') {
+//            useModule('org.springframework.boot:spring-boot-gradle-plugin:2.5.4')
+//        }
+//    }
+}
+
+buildCache {
+//    local {
+//        enabled = true
+//
+//    }
+//
+//    remote(Class.class){
+//
+//    }
+}
+
+println "settings dir is: ${settingsDir}"
+rootProject.name = 'gradle-demo'

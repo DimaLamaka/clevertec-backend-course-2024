@@ -1,0 +1,2 @@
+include('gradle-demo')
+include('gradle-plugin')

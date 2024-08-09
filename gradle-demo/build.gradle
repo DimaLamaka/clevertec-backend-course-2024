@@ -1,0 +1,259 @@
+//--------------------------gradle----------------------------------
+
+//println "Configuration phase in build.gradle"
+//println "project name is: ${gradle.rootProject.name}"
+//println "start parameters is: ${gradle.startParameter}"
+//
+//gradle.taskGraph.whenReady {
+//    gradle.taskGraph.getAllTasks().each { println "${it.name}" }
+//}
+//
+//gradle.projectsEvaluated {
+//    println "projectsEvaluated"
+//}
+
+//------------------------project-----------------------------------
+plugins {
+    id 'java'
+//    id 'ru.clevertec.file-count-report-plugin' version '1.0.7'
+}
+
+group = 'ru.clevertec'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+//    maven {
+//        url = 'http://artifactory'
+//        credentials {
+//            password = 'pass'
+//            username = 'user'
+//        }
+//    }
+}
+
+configurations {
+    dep
+}
+
+ext {
+    junitVersion = '5.10.3'
+}
+
+
+dependencies {
+    dep "org.springframework:spring-core:6.1.10"
+    implementation gradleApi()
+
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testImplementation platform('org.junit:junit-bom:5.10.3')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+println "rootProject name: ${gradle.rootProject.name}, rootProject version: ${gradle.rootProject.version}"
+println "startParameters: ${gradle.startParameter.taskNames}"
+println "property by key: ${properties.get("key")}"
+println "project ext is: ${project.extensions.getExtraProperties().properties}"
+println "gradle ext is: ${gradle.extensions.getExtraProperties().properties}"
+
+
+sourceSets {
+    main {
+        java {
+            srcDir("generated-classes")
+        }
+    }
+}
+
+println "dep configuration: ${configurations.dep.files}"
+//---------------------------dependencies----------------------
+//configurations {
+//
+//    myConfiguration {
+//        description "Is is my container configuration"  //custom configuration
+//    }
+//    implementation {
+////        exclude(group: 'org.springframework', module: 'spring-aspects') // exclude from configurations block
+////        resolutionStrategy.force('org.springframework:spring-aspects:6.1.5') //if version conflicts use choosen version
+//    }
+//    all {
+//        resolutionStrategy.force('org.springframework:spring-aspects:6.1.4') //resolution for all configurations
+//    }
+//}
+//dependencies {
+//    compileOnly gradleApi()
+//    implementation('org.springframework.boot:spring-boot-starter-data-jpa:3.3.2') {
+////        transitive false //remove all transitive dependencies
+////        exclude(group: 'org.springframework', module: 'spring-aspects') //exclude
+//    }
+//    myConfiguration 'org.springframework.boot:spring-boot-starter-data-jpa:3.3.2'
+//    implementation 'org.springframework:spring-aspects:6.1.4'
+//
+//    add("implementation", "org.apache.commons:commons-lang3:3.15.0") //add with parms
+//    testImplementation platform('org.junit:junit-bom:5.9.1') //for download junit bom versions we can go to die .gradle/modules/files/ and check it
+//    testImplementation 'org.junit.jupiter:junit-jupiter'
+//}
+
+
+//------------------tasks-----------------------------
+task("defaultTask1") {
+    doFirst {
+        println "defaultTask1 exec"
+    }
+}
+defaultTasks += ["defaultTask1"]
+println "default tasks: ${project.defaultTasks}"
+
+task("exec") {
+    doLast {
+        def stream = new ByteArrayOutputStream()
+        exec {
+            commandLine 'powershell.exe', 'java', '--version'
+            standardOutput = stream
+        }
+        println "exec output: ${stream.toString()}"
+    }
+}
+
+tasks.register("copyJars") {
+    copy {
+        from(configurations.runtimeClasspath.files)
+        into("${layout.buildDirectory.asFile.get()}/libs/lib")
+    }
+}
+jar.dependsOn copyJars
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'ru.clevertec.Runner',
+                'Class-Path': configurations.runtimeClasspath.files.collect { "lib/$it.name" }.join(' ')
+    }
+}
+
+//jar {
+//    manifest {
+//        attributes 'Main-Class': 'ru.clevertec.Runner'
+//    }
+//
+//    from(configurations.runtimeClasspath.collect{zipTree(it)})
+//}
+
+tasks.register("task1") {
+    description = "task 1"
+    enabled = true
+    group = 'custom'
+    println "inputs properties: ${inputs.properties}"
+//    dependsOn 'test'
+    doFirst {
+        println "full path is: ${path}"
+        println "first exec task1"
+    }
+    onlyIf {
+        project.properties.get("ENVVVVVVVVVVVV") != null
+    }
+
+//    onlyIf("reason", new Spec<Task>() {
+//        @Override
+//        boolean isSatisfiedBy(Task task) {
+//
+//        }
+//    })
+}
+
+tasks.create("task3") {
+    doFirst {
+        println 'start exec task3'
+    }
+    dependsOn task1
+    group = 'custom'
+}
+
+task3 {
+    doLast {
+        println 'end exec task3'
+    }
+}
+
+tasks.register("tasksCopy", Copy) {
+    from("build/reports")
+    into("reports")
+    exclude("index.html")
+
+    dependsOn test
+}
+
+ext {
+    maxDirs = 5
+    maxFiles = 2
+}
+
+//task countFiles {
+//    def fileCounts = [:]
+//
+//    doLast {
+//        def sourceDir = file("${projectDir}/src")
+//        def fileCount = 0
+//        def dirCount = 0
+//
+//        sourceDir.eachFileRecurse { file ->
+//            if (file.isFile()) {
+//                fileCount++
+//            } else if (file.isDirectory()) {
+//                dirCount++
+//            }
+//        }
+//
+//        fileCounts = [dirs: dirCount, files: fileCount]
+//        println "Counted ${dirCount} directories and ${fileCount} files."
+//        project.ext.fileCounts = fileCounts // Сохранение данных в глобальное свойство проекта
+//    }
+//
+//    outputs.upToDateWhen { false } // Заставляет задачу выполняться каждый раз
+//}
+//
+//task checkLimits {
+//    dependsOn countFiles
+//
+//    doLast {
+//        def fileCounts = project.ext.fileCounts // Извлечение данных из глобального свойства проекта
+//        def maxFiles = project.ext.maxFiles
+//        def maxDirs = project.ext.maxDirs
+//
+//        if (fileCounts.files > maxFiles || fileCounts.dirs > maxDirs) {
+//            throw new GradleException("File or directory count exceeded limits. Files: ${fileCounts.files}, Dirs: ${fileCounts.dirs}")
+//        }
+//
+//        println "File and directory count within limits. Files: ${fileCounts.files}, Dirs: ${fileCounts.dirs}"
+//        project.ext.checkResult = fileCounts // Сохранение результата проверки в глобальное свойство проекта
+//    }
+//
+//    outputs.upToDateWhen { false } // Заставляет задачу выполняться каждый раз
+//}
+//
+//task generateReport {
+//    dependsOn checkLimits
+//
+//    doLast {
+//        def checkResult = project.ext.checkResult // Извлечение данных из глобального свойства проекта
+//
+//        def reportFile = file("${buildDir}/report.txt")
+//        reportFile.text = "File and directory count report:\n"
+//        reportFile.append("Files: ${checkResult.files}\n")
+//        reportFile.append("Directories: ${checkResult.dirs}\n")
+//
+//        println "Report generated at ${reportFile.absolutePath}"
+//    }
+//
+//    outputs.upToDateWhen { false } // Заставляет задачу выполняться каждый раз
+//}
+
+//fileCountReportExtension {
+//    maxDirsCount = 10
+//    maxFilesCount = 10
+//    sourceDir = file("${projectDir}/src")
+//    reportTargetFile = file("${buildDir}/report.txt")
+//}
