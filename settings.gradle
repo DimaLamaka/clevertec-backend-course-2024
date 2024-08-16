@@ -1,2 +1,6 @@
-include('gradle-demo')
-include('gradle-plugin')
+include 'gradle-demo'
+include 'gradle-plugin'
+include 'stream-api'
+include 'unit-testing'
+include 'reflection-api'
+
