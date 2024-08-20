@@ -3,4 +3,6 @@ include 'gradle-plugin'
 include 'stream-api'
 include 'unit-testing'
 include 'reflection-api'
+include 'string'
+include 'string'
 
