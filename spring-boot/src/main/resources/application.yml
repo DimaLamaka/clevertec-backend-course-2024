@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: production
+  jpa:
+    database: h2
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:h2:mem:db
+    username: user
+    password: pass
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+
+metric:
+  sender:
+    enable: true
+    default:
+      default-metrics:
+        - SUCCESS_COUNTER
+        - FAIL_COUNTER
+        - EXECUTION_TIME
+      default-metric-senders:
+        - ru.clevertec.starter.service.LoggerMetricSender
+
+

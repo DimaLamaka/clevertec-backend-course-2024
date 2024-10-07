@@ -1,0 +1,19 @@
+POST http://localhost:8080/api/v1/push
+Content-Type: application/json
+
+{
+  "pushes": [
+    {
+      "id": "1",
+      "platform": "IOS",
+      "pushMessage": "ios push message"
+    },
+    {
+      "id": "2",
+      "platform": "ANDROID",
+      "pushMessage": "android push message"
+    }
+  ]
+}
+
+###
