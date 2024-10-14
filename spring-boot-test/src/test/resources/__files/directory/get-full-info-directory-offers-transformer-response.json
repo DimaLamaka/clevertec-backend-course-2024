@@ -1,0 +1,48 @@
+{
+  "directoryOffers": [
+    {
+      "id": "24",
+      "category": "{{parameters.cat}}",
+      "code": "offer1",
+      "title": "title1",
+      "description": "description1",
+      "condition": "condition1",
+      "tariff": 0.14,
+      "startDate": "2017-06-04",
+      "endDate": "2999-10-03"
+    },
+    {
+      "id": "98",
+      "category": "{{parameters.offer}}",
+      "code": "offer2",
+      "title": "title2",
+      "description": "description2",
+      "condition": "condition2",
+      "tariff": 2.14,
+      "startDate": "2021-06-04",
+      "endDate": "2999-10-03"
+    },
+    {
+      "id": "32",
+      "category": "{{parameters.cat}}",
+      "code": "offer3",
+      "title": "title3",
+      "description": "description3",
+      "condition": "condition3",
+      "tariff": 1.2,
+      "startDate": "2017-06-04",
+      "endDate": "2999-10-03"
+    },
+    {
+      "id": "51",
+      "category": "{{parameters.cat}}",
+      "code": "offer6",
+      "title": "title6",
+      "description": "description6",
+      "condition": "condition6",
+      "tariff": 3.0,
+      "startDate": "2021-01-02",
+      "endDate": "2999-10-03"
+    }
+  ]
+}

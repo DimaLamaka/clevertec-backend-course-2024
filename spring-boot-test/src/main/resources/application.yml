@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+  gson:
+    pretty-printing: true
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            logger-level: FULL
+
+logging:
+  level:
+    ru.clevertec.application: debug
+
+directory:
+  gateway:
+    url: http://localhost:4444
+    getshortinfooffers.endpoint: /short-info-offers
+    getfullinfooffers.endpoint: /full-info-offers
+
+

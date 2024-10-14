@@ -1,0 +1,52 @@
+{
+  "offers": [
+    {
+      "code": "code1",
+      "category": "category#1",
+      "title": "offer#1",
+      "description": "description1",
+      "condition": "condition1",
+      "tariff": 1.5
+    },
+    {
+      "code": "code2",
+      "category": "category#1",
+      "title": "offer#2",
+      "description": "description2",
+      "condition": "condition2",
+      "tariff": 2.1
+    },
+    {
+      "code": "code3",
+      "category": "category#2",
+      "title": "offer#3",
+      "description": "description3",
+      "condition": "condition3",
+      "tariff": 0.15
+    },
+    {
+      "code": "code4",
+      "category": "category#4",
+      "title": "offer#4",
+      "description": "description4",
+      "condition": "condition4",
+      "tariff": 0.23
+    },
+    {
+      "code": "code5",
+      "category": "category#4",
+      "title": "offer#5",
+      "description": "description5",
+      "condition": "condition5",
+      "tariff": 3.1
+    },
+    {
+      "code": "code6",
+      "category": "category#4",
+      "title": "offer#6",
+      "description": "description6",
+      "condition": "condition6",
+      "tariff": 1.1
+    }
+  ]
+}
