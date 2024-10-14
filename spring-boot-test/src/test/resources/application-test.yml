@@ -1,0 +1,10 @@
+logging:
+  level:
+    ru.clevertec.application: debug
+    org.springframework.orm.jpa: debug
+    org.springframework.transaction: debug
+directory:
+  gateway:
+    url: http://localhost:7777
+    getshortinfooffers.endpoint: /short-info-offers
+    getfullinfooffers.endpoint: /full-info-offers

@@ -1,0 +1,40 @@
+{
+  "directoryOffers": [
+    {
+      "id": "offer#1",
+      "code": "offer1",
+      "startDate": "2017-06-04",
+      "endDate": "2999-10-03"
+    },
+    {
+      "id": "offer#2",
+      "code": "offer2",
+      "startDate": "2021-06-04",
+      "endDate": "2999-10-03"
+    },
+    {
+      "id": "offer#3",
+      "code": "offer3",
+      "startDate": "2017-06-04",
+      "endDate": "2999-10-03"
+    },
+    {
+      "id": "offer#4",
+      "code": "offer4",
+      "startDate": "2801-06-04",
+      "endDate": "2804-10-03"
+    },
+    {
+      "id": "offer#5",
+      "code": "offer5",
+      "startDate": "2015-06-04",
+      "endDate": "2022-10-03"
+    },
+    {
+      "id": "offer#6",
+      "code": "offer6",
+      "startDate": "2021-01-02",
+      "endDate": "2999-10-03"
+    }
+  ]
+}
