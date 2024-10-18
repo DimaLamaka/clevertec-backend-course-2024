@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/short-info-offers",
+    "bodyPatterns": [
+      {
+        "equalToJson": "{\"directoryName\": \"OFFERS\"}",
+        "ignoreArrayOrder" : true,
+        "ignoreExtraElements" : true
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "get-short-info-directory-offers-response.json",
+    "headers": {
+      "Content-Type": "application/json; charset=utf-8"
+    }
+  }
+}
