@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: users
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - '5555:5432'
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512m
+    profiles:
+      - bd
+      - bd+app
+    networks:
+      - docker-network
+
+  docker-app:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    environment:
+      POSTGRES_URL: jdbc:postgresql://postgres:5432/users
+      POSTGRES_USERNAME: ${BD_USER}
+      POSTGRES_PASSWORD: ${BD_PASS}
+    depends_on:
+      - postgres
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512m
+    profiles:
+      - app
+      - bd+app
+    networks:
+      - docker-network
+
+networks:
+  docker-network:
+    external: true

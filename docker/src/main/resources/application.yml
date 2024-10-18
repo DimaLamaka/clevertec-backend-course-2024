@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: docker-api
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5434/postgres}
+    username: ${POSTGRES_USERNAME:user}
+    password: ${POSTGRES_PASSWORD:pass}
+
+logging:
+  file:
+    name: ./logs/docker-api.log
+  logback:
+    rollingpolicy:
+      total-size-cap: 10GB
+      file-name-pattern: ./logs/docker-api-%d{yyyy-MM-dd_HH}-00.%i.log
+      max-file-size: 7MB
